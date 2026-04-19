@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadVal — Elite Staff & Operations Manager</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <svg style="width:0;height:0;position:absolute;z-index:-1;" aria-hidden="true">
+        <filter id="liquid-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="50" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </svg>
+
+    <div class="liquid-transition-layer"></div>
+    
+    <div id="webgl-container"></div>
+    <div class="grain-overlay"></div>
+
+    <div class="preloader">
+        <div class="loader-text-wrapper">
+            <h1 class="loader-text">LEADVAL</h1>
+            <div class="loader-percentage">0%</div>
+        </div>
+    </div>
+
+    <button class="audio-btn">
+        <span class="audio-status">SOUND: OFF</span>
+        <div class="audio-waves"><div class="w"></div><div class="w"></div><div class="w"></div></div>
+    </button>
+
+    <nav class="navbar">
+        <div class="nav-brand">LEADVAL<span>(c) 2026</span></div>
+        <div class="nav-status">AVAILABLE FOR OPPORTUNITIES</div>
+        <div class="nav-menu">
+            <a href="#about" class="nav-trigger">ABOUT</a>
+            <a href="#expertise" class="nav-trigger">EXPERTISE</a>
+            <a href="#projects" class="nav-trigger">ARCHIVE</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="hero-top-text">STAFF MANAGER & SCREENSHARE EXPERT</p>
+                <h1 class="hero-title">LEADVAL</h1>
+                
+                <div class="hero-bottom-text">
+                    <p class="desc">Navigating complex server ecosystems.<br>Over 7 Years of strategic moderation,<br>team structuring, and cheat detection.</p>
+                    <div class="scroll-indicator">
+                        <div class="mouse"></div>
+                        <span>SCROLL</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="marquee-section gs-marquee">
+            <div class="marquee-inner">
+                <span>OPERATIONS &bull; SCREENSHARE &bull; ARCHITECTURE &bull; DISCORD &bull; LEADERSHIP &bull; COMMUNITY &bull; MANAGEMENT &bull; </span>
+                <span>OPERATIONS &bull; SCREENSHARE &bull; ARCHITECTURE &bull; DISCORD &bull; LEADERSHIP &bull; COMMUNITY &bull; MANAGEMENT &bull; </span>
+            </div>
+        </div>
+
+        <section class="expertise" id="expertise">
+            <div class="expertise-container">
+                <div class="exp-title"><h2>PILLARS<br>OF CONTROL.</h2></div>
+                <div class="cards-wrapper">
+                    <div class="glass-card">
+                        <div class="card-num">01</div>
+                        <h3>Staff Management</h3>
+                        <p>Complete authority over hierarchical systems. Managing evaluations, rapid promotions, conflict resolution, and ensuring long-term staff loyalty and efficiency across multiple networks.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-num">02</div>
+                        <h3>ScreenShare Protocol</h3>
+                        <p>Extreme technical screening. Over 50+ manual cheating detections daily on the highest-tier competitive environments like Hypixel and CavePvP. Flawless accuracy and absolute transparency.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-num">03</div>
+                        <h3>System Architecture</h3>
+                        <p>Building massive Discord communication grids for Staff teams, establishing complex ticketing systems, and drafting all internal documentation to standardize network moderation rules.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="massive-type gs-parallax">
+            <h2 class="bg-type">7+ YEARS</h2>
+            <h2 class="bg-type outline">30+ NETWORKS</h2>
+        </section>
+
+        <section class="projects" id="projects">
+            <div class="section-header">
+                <h2>THE ARCHIVE.</h2>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">ALL</button>
+                    <button class="filter-btn" data-filter="leadership">LEADERSHIP</button>
+                    <button class="filter-btn" data-filter="ss">SCREENSHARE</button>
+                    <button class="filter-btn" data-filter="admin">ADMIN & MEDIA</button>
+                </div>
+            </div>
+            
+            <div class="project-list">
+                <a href="#" class="pr-item leadership highlight">
+                    <div class="pr-content"><h3 class="pr-title">MineSplash.us</h3><span class="pr-role">Owner & Admin</span><span class="pr-desc">Led the entire Staff Team and managed the network.</span></div>
+                </a>
+                <a href="#" class="pr-item leadership highlight">
+                    <div class="pr-content"><h3 class="pr-title">MC.Voltaic.net</h3><span class="pr-role">Owner</span><span class="pr-desc">Coordinated operational areas, media, and architectural setup.</span></div>
+                </a>
+                <a href="#" class="pr-item ss highlight">
+                    <div class="pr-content"><h3 class="pr-title">Hypixel.net</h3><span class="pr-role">Ranked ScreenSharer</span><span class="pr-desc">Ranked SS reviews maintaining highest competitive integrity.</span></div>
+                </a>
+                <a href="#" class="pr-item ss highlight">
+                    <div class="pr-content"><h3 class="pr-title">CavePvP.org</h3><span class="pr-role">Global ScreenSharer</span><span class="pr-desc">Constant rigorous technical examinations of reported players.</span></div>
+                </a>
+                <a href="#" class="pr-item ss highlight">
+                    <div class="pr-content"><h3 class="pr-title">CoralMC.it</h3><span class="pr-role">ScreenSharer</span><span class="pr-desc">High-level cheating detection in European competitive scene.</span></div>
+                </a>
+
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">SoulsMC.net</h3><span class="pr-role">Network Admin</span><span class="pr-desc">Operations configuration.</span></div></a>
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">EvilMC.us</h3><span class="pr-role">Platform Admin</span><span class="pr-desc">Technical oversight.</span></div></a>
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">MinePlay.lat</h3><span class="pr-role">Operador</span><span class="pr-desc">Administration routines.</span></div></a>
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">AstralMC.cc</h3><span class="pr-role">Admin - HCF</span><span class="pr-desc">Led primary HCF mode and SS ops.</span></div></a>
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">SoloLegends.net</h3><span class="pr-role">Senior Admin</span><span class="pr-desc">Team supervision.</span></div></a>
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">CastleMC.net</h3><span class="pr-role">Senior Admin</span><span class="pr-desc">Staff hierarchy management.</span></div></a>
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">WaterMC.gg</h3><span class="pr-role">Senior Admin</span><span class="pr-desc">Network supervision.</span></div></a>
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">HolyPvP.net</h3><span class="pr-role">Admin</span><span class="pr-desc">General moderation.</span></div></a>
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">MineLucky.org</h3><span class="pr-role">Admin</span><span class="pr-desc">Community control.</span></div></a>
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">OniPvP.net</h3><span class="pr-role">Admin / SS Manager</span><span class="pr-desc">SS coordination.</span></div></a>
+                <a href="#" class="pr-item leadership"><div class="pr-content"><h3 class="pr-title">DynamicPvP.net</h3><span class="pr-role">Jr. Admin</span><span class="pr-desc">Moderation assistance.</span></div></a>
+
+                <a href="#" class="pr-item admin"><div class="pr-content"><h3 class="pr-title">HazelMC.com</h3><span class="pr-role">Staff Manager</span><span class="pr-desc">Structured ranks & internal training.</span></div></a>
+                <a href="#" class="pr-item admin"><div class="pr-content"><h3 class="pr-title">Gorium.net</h3><span class="pr-role">Manager</span><span class="pr-desc">Operations management.</span></div></a>
+                <a href="#" class="pr-item admin"><div class="pr-content"><h3 class="pr-title">IcePvP.cc</h3><span class="pr-role">Manager</span><span class="pr-desc">Operations management.</span></div></a>
+                <a href="#" class="pr-item admin"><div class="pr-content"><h3 class="pr-title">VanityMC.us</h3><span class="pr-role">Manager</span><span class="pr-desc">System moderation.</span></div></a>
+                <a href="#" class="pr-item admin"><div class="pr-content"><h3 class="pr-title">Dextrality.net</h3><span class="pr-role">Staff Coord</span><span class="pr-desc">Staffing and evaluations.</span></div></a>
+
+                <a href="#" class="pr-item admin"><div class="pr-content"><h3 class="pr-title">MineLegends.es</h3><span class="pr-role">Media Manager</span><span class="pr-desc">Community expansion.</span></div></a>
+                <a href="#" class="pr-item admin"><div class="pr-content"><h3 class="pr-title">MC.SunCraft.lol</h3><span class="pr-role">Media & SS</span><span class="pr-desc">Cross-functional role.</span></div></a>
+                <a href="#" class="pr-item ss"><div class="pr-content"><h3 class="pr-title">SalmoBox.net</h3><span class="pr-role">SS Manager</span><span class="pr-desc">Detection systems.</span></div></a>
+                <a href="#" class="pr-item ss"><div class="pr-content"><h3 class="pr-title">NokBox.net</h3><span class="pr-role">Admin / SS</span><span class="pr-desc">Reviews & Admintration.</span></div></a>
+                <a href="#" class="pr-item ss"><div class="pr-content"><h3 class="pr-title">PrismaMC.net</h3><span class="pr-role">SS Manager</span><span class="pr-desc">Cheating protocols.</span></div></a>
+                <a href="#" class="pr-item ss"><div class="pr-content"><h3 class="pr-title">SurvivalPvP</h3><span class="pr-role">ScreenSharer</span><span class="pr-desc">General cheating reviews.</span></div></a>
+                <a href="#" class="pr-item ss"><div class="pr-content"><h3 class="pr-title">CyrusPvP.net</h3><span class="pr-role">Sr. Mod</span><span class="pr-desc">Moderation handling.</span></div></a>
+                <a href="#" class="pr-item ss"><div class="pr-content"><h3 class="pr-title">Battle.rip</h3><span class="pr-role">Mod+</span><span class="pr-desc">Moderation routing.</span></div></a>
+                <a href="#" class="pr-item ss"><div class="pr-content"><h3 class="pr-title">SkylexMC.net</h3><span class="pr-role">Encargado</span><span class="pr-desc">In-game supervision.</span></div></a>
+            </div>
+
+            <div class="sentinel-terminal">
+                <div class="term-header">
+                    <span>Sentinel.exe [Version 7.0.2]</span>
+                    <span>_ X</span>
+                </div>
+                <div class="term-body" id="term-body">
+                    <div class="term-line sys-msg">Initializing LeadVal heuristics... OK.</div>
+                    <div class="term-line sys-msg">Loaded 40+ network configurations. Type 'help' to interface.</div>
+                    <div class="term-line"><br></div>
+                </div>
+            </div>
+            
+            <div class="all-projects-btn-wrapper">
+                <button class="circle-btn"><span>ARCHIVE<br>END_<br></span></button>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-inner">
+                <h2 class="footer-title">LET'S<br>BUILD<br>TOGETHER.</h2>
+                <div class="contact-methods">
+                    <div class="c-method"><span class="c-label">EMAIL</span><a href="mailto:leadrhin@gmail.com" class="c-val">LEADRHIN@GMAIL.COM</a></div>
+                    <div class="c-method"><span class="c-label">DISCORD</span><a href="#" id="copy-discord" class="c-val">LEADVAL</a></div>
+                    <div class="c-method"><span class="c-label">X / TWITTER</span><a href="https://twitter.com/leadrhin" target="_blank" class="c-val">@LEADRHIN</a></div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
