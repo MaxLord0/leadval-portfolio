@@ -1,6 +1,11 @@
 // ==========================================
 // 1. LENIS SMOOTH SCROLL & KINETIC SKEW
 // ==========================================
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 const lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
@@ -108,12 +113,11 @@ function createInputLine() {
     if(!termBody) return;
     const line = document.createElement('div');
     line.className = 'term-input-line';
-    line.innerHTML = `<span>C:\\LeadVal&gt;</span> <input type="text" class="term-input" autocomplete="off" spellcheck="false" autofocus>`;
+    line.innerHTML = `<span>C:\\LeadVal&gt;</span> <input type="text" class="term-input" autocomplete="off" spellcheck="false">`;
     termBody.appendChild(line);
     const input = line.querySelector('.term-input');
     
-    input.focus();
-    termBody.addEventListener('click', () => input.focus());
+    termBody.addEventListener('click', () => input.focus({ preventScroll: true }));
     input.addEventListener('keydown', (e) => {
         if(e.key === 'Enter') {
             const val = input.value.trim().toLowerCase();
@@ -160,7 +164,7 @@ function printLine(text, className) {
     termBody.appendChild(div);
     termBody.scrollTop = termBody.scrollHeight;
 }
-setTimeout(() => { createInputLine(); }, 2000);
+setTimeout(() => { createInputLine(); }, 100);
 
 // ==========================================
 // 5. AUDIO SCAPE
