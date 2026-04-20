@@ -231,6 +231,7 @@ if(container && typeof THREE !== 'undefined') {
     const geometry = new THREE.BufferGeometry();
     const posSphere = new Float32Array(particleCount * 3);
     const posCube = new Float32Array(particleCount * 3); 
+    const colorArray = new Float32Array(particleCount * 3);
 
     for(let i=0; i<particleCount; i++) {
         const phi = Math.acos( - 1 + ( 2 * i ) / particleCount );
@@ -244,6 +245,12 @@ if(container && typeof THREE !== 'undefined') {
         posCube[i*3] = (Math.random() - 0.5) * span;
         posCube[i*3+1] = (Math.random() - 0.5) * span;
         posCube[i*3+2] = (Math.random() - 0.5) * span;
+        
+        if (Math.random() > 0.5) {
+            colorArray[i*3] = 1.0; colorArray[i*3+1] = 0.9; colorArray[i*3+2] = 0.0;
+        } else {
+            colorArray[i*3] = 0.0; colorArray[i*3+1] = 0.0; colorArray[i*3+2] = 1.0;
+        }
     }
 
     const posCurrent = new Float32Array(particleCount * 3);
@@ -252,6 +259,7 @@ if(container && typeof THREE !== 'undefined') {
     geometry.setAttribute('position', new THREE.BufferAttribute(posCurrent, 3));
     geometry.setAttribute('posSphere', new THREE.BufferAttribute(posSphere, 3));
     geometry.setAttribute('posCube', new THREE.BufferAttribute(posCube, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
 
     const particleMaterial = new THREE.ShaderMaterial({
         uniforms: {
@@ -265,8 +273,11 @@ if(container && typeof THREE !== 'undefined') {
             uniform vec2 u_mouse;
             attribute vec3 posSphere;
             attribute vec3 posCube;
+            attribute vec3 color;
+            varying vec3 vColor;
             
             void main() {
+                vColor = color;
                 vec3 targetPos = mix(posSphere, posCube, u_lerp);
                 targetPos.x += sin(u_time * 2.0 + targetPos.y) * 0.2;
                 targetPos.y += cos(u_time * 1.5 + targetPos.x) * 0.2;
@@ -278,10 +289,11 @@ if(container && typeof THREE !== 'undefined') {
             }
         `,
         fragmentShader: `
+            varying vec3 vColor;
             void main() {
                 float dist = length(gl_PointCoord - vec2(0.5));
                 if(dist > 0.5) discard;
-                gl_FragColor = vec4(0.98, 0.80, 0.08, 0.6 * (1.0 - (dist * 2.0))); 
+                gl_FragColor = vec4(vColor, 0.8 * (1.0 - (dist * 2.0))); 
             }
         `,
         transparent: true,
