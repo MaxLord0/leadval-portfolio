@@ -73,10 +73,17 @@ window.addEventListener('load', () => {
 });
 
 // Horizontal Parallax
-const expertiseContainer = document.querySelector('.expertise-container');
-if(window.innerWidth > 1024 && expertiseContainer) {
-    gsap.to(expertiseContainer, { x: () => -(expertiseContainer.scrollWidth - window.innerWidth) + "px", ease: "none", scrollTrigger: { trigger: ".expertise", pin: true, scrub: 1, end: () => "+=" + expertiseContainer.scrollWidth } });
-}
+let mm = gsap.matchMedia();
+mm.add("(min-width: 1025px)", () => {
+    const expertiseContainer = document.querySelector('.expertise-container');
+    if(expertiseContainer) {
+        gsap.to(expertiseContainer, { 
+            x: () => -(expertiseContainer.scrollWidth - window.innerWidth) + "px", 
+            ease: "none", 
+            scrollTrigger: { trigger: ".expertise", pin: true, scrub: 1, end: () => "+=" + expertiseContainer.scrollWidth } 
+        });
+    }
+});
 gsap.to(".bg-type:not(.outline)", { x: "-10vw", ease: "none", scrollTrigger: { trigger: ".massive-type", scrub: 1 } });
 gsap.to(".bg-type.outline", { x: "10vw", ease: "none", scrollTrigger: { trigger: ".massive-type", scrub: 1 } });
 

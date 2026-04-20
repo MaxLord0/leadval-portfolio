@@ -184,8 +184,11 @@ p, span, h1, h2, h3, .desc { cursor: text; }
 
 /* Mobile Reponsive Overhaul */
 @media(max-width: 1024px) {
+    .navbar { flex-direction: column; align-items: center; gap: 1rem; padding: 1.5rem 4vw; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); }
+    .nav-brand { margin: 0; }
     .nav-status { display: none; }
-    .nav-menu { display: flex; justify-content: flex-end; width: 100%;}
+    .nav-menu { justify-content: center; width: 100%; gap: 1rem; flex-wrap: wrap;}
+    .nav-menu a { margin: 0; font-size: 0.8rem;}
     .hero { min-height: 100vh; height: auto; padding-top: 6rem; padding-bottom: 4rem;}
     .hero-content { justify-content: center; padding-top: 10vh; gap: 3rem;}
     .hero-title { font-size: 16vw; text-align: center; }
