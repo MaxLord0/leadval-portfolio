@@ -20,6 +20,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
+    <!-- Thermodynamic Grid Canvas -->
+    <canvas id="thermodynamic-canvas"></canvas>
     <svg style="width:0;height:0;position:absolute;z-index:-1;" aria-hidden="true">
         <filter id="liquid-filter">
             <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
@@ -256,10 +258,7 @@
                 </div>
 
                 <div class="footer-bottom-bar">
-                    <div class="f-copy">© 2026 LeadVal. All rights reserved.</div>
-                    <div class="f-badge footer-glass-pill">
-                        Crafted with <span class="animate-footer-heartbeat text-destructive">❤</span> by <a href="#" style="color:#fff; margin-left:4px;">The Abyss</a>
-                    </div>
+                    <div class="f-copy text-muted">© 2026 LeadVal. All rights reserved.</div>
                     <button class="magnetic-btn footer-glass-pill back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
                         <i data-lucide="arrow-up"></i>
                     </button>

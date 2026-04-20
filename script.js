@@ -390,13 +390,123 @@ document.querySelectorAll('.magnetic-btn').forEach(element => {
 
     element.addEventListener('mouseleave', () => {
         gsap.to(element, {
-            x: 0,
-            y: 0,
-            rotationX: 0,
-            rotationY: 0,
-            scale: 1,
-            ease: "elastic.out(1, 0.3)",
-            duration: 1.2,
+            x: 0, y: 0, rotationX: 0, rotationY: 0, scale: 1, ease: "elastic.out(1, 0.3)", duration: 1.2,
         });
     });
 });
+
+// ==========================================
+// 8. INTERACTIVE THERMODYNAMIC GRID (Native)
+// ==========================================
+function initThermodynamicGrid() {
+    const canvas = document.getElementById('thermodynamic-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+    
+    let resolution = 20; 
+    let coolingFactor = 0.96;
+    let grid, cols, rows, width, height;
+    const mouse = { x: -1000, y: -1000, prevX: -1000, prevY: -1000, active: false };
+
+    // Brand Palette: Dark -> Blue -> Yellow
+    const getThermalColor = (t) => {
+        if(t > 0.6) {
+           const factor = (t - 0.6) / 0.4;
+           const r = Math.floor(0 + (255 - 0) * factor);
+           const g = Math.floor(0 + (230 - 0) * factor);
+           const b = Math.floor(255 + (0 - 255) * factor);
+           return `rgb(${r}, ${g}, ${b})`;
+        } else {
+           const factor = t / 0.6;
+           const r = Math.floor(1 + (0 - 1) * factor);
+           const g = Math.floor(1 + (0 - 1) * factor);
+           const b = Math.floor(3 + (255 - 3) * factor);
+           return `rgb(${r}, ${g}, ${b})`;
+        }
+    };
+
+    const resize = () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        cols = Math.ceil(width / resolution);
+        rows = Math.ceil(height / resolution);
+        grid = new Float32Array(cols * rows).fill(0);
+    };
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
+    });
+
+    const update = () => {
+        if (mouse.active) {
+            const dx = mouse.x - mouse.prevX;
+            const dy = mouse.y - mouse.prevY;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            const steps = Math.ceil(dist / (resolution / 2));
+            
+            for (let s = 0; s <= steps; s++) {
+                const t = steps > 0 ? s / steps : 0;
+                const x = mouse.prevX + dx * t;
+                const y = mouse.prevY + dy * t;
+                const col = Math.floor(x / resolution);
+                const row = Math.floor(y / resolution);
+                
+                const radius = 2;
+                for (let i = -radius; i <= radius; i++) {
+                    for (let j = -radius; j <= radius; j++) {
+                        const c = col + i;
+                        const r = row + j;
+                        if (c >= 0 && c < cols && r >= 0 && r < rows) {
+                            const idx = c + r * cols;
+                            const d = Math.sqrt(i*i + j*j);
+                            if (d <= radius) {
+                                grid[idx] = Math.min(1.0, grid[idx] + 0.3 * (1 - d/radius));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        mouse.prevX = mouse.x;
+        mouse.prevY = mouse.y;
+
+        ctx.fillStyle = "#010103";
+        ctx.fillRect(0, 0, width, height);
+
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                const idx = c + r * cols;
+                let temp = grid[idx];
+                grid[idx] *= coolingFactor;
+                
+                if (temp > 0.05) {
+                    const x = c * resolution;
+                    const y = r * resolution;
+                    ctx.fillStyle = getThermalColor(temp);
+                    const size = resolution * (0.8 + temp * 0.5);
+                    const offset = (resolution - size) / 2;
+                    ctx.beginPath();
+                    ctx.rect(x + offset, y + offset, size, size);
+                    ctx.fill();
+                } else if (c % 2 === 0 && r % 2 === 0) {
+                    const x = c * resolution;
+                    const y = r * resolution;
+                    ctx.fillStyle = "rgba(0, 0, 255, 0.05)";
+                    ctx.fillRect(x + resolution/2 - 1, y + resolution/2 - 1, 2, 2);
+                }
+            }
+        }
+        requestAnimationFrame(update);
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+    update();
+}
+// Init immediately without blocking DOM
+setTimeout(initThermodynamicGrid, 100);
