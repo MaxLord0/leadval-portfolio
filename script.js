@@ -340,22 +340,63 @@ if(container && typeof THREE !== 'undefined') {
 }
 
 // ==========================================
-// 7. DISCORD CLIPBOARD & REDIRECT LOGIC
+// 7. REACT / SHADCN PORTED LOGIC (Native)
 // ==========================================
-const discordBtn = document.getElementById('copy-discord');
-if(discordBtn) {
-    discordBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        navigator.clipboard.writeText('LEADVAL');
-        
-        const originalText = discordBtn.textContent;
-        discordBtn.textContent = 'COPIED! REDIRECTING...';
-        discordBtn.style.color = '#FACC15';
-        
-        setTimeout(() => {
-            window.open('https://discord.com/app', '_blank');
-            discordBtn.textContent = originalText;
-            discordBtn.style.color = '#fff';
-        }, 1200);
+
+// Mobile Menu Dock Logic (--lineWidth updater)
+function activateMobileMenu(btn, targetId) {
+    document.querySelectorAll('.mobile-dock .menu__item').forEach(el => {
+        el.classList.remove('active');
+        el.querySelector('.menu__text').classList.remove('active');
     });
+    btn.classList.add('active');
+    const textEl = btn.querySelector('.menu__text');
+    textEl.classList.add('active');
+    btn.style.setProperty('--lineWidth', textEl.scrollWidth + 'px');
+    
+    // Smooth scroll integration
+    const targetEl = document.querySelector(targetId);
+    if(targetEl && typeof lenis !== 'undefined') lenis.scrollTo(targetEl, { offset: 0, duration: 1.5 });
 }
+
+// Initialize width for default active mobile menu item
+setTimeout(() => {
+    const act = document.querySelector('.mobile-dock .menu__item.active');
+    if(act) {
+        const txt = act.querySelector('.menu__text');
+        if(txt) act.style.setProperty('--lineWidth', txt.scrollWidth + 'px');
+    }
+}, 500);
+
+// Magnetic Buttons (Cinematic Footer)
+document.querySelectorAll('.magnetic-btn').forEach(element => {
+    element.addEventListener('mousemove', (e) => {
+        const rect = element.getBoundingClientRect();
+        const h = rect.width / 2;
+        const w = rect.height / 2;
+        const x = e.clientX - rect.left - h;
+        const y = e.clientY - rect.top - w;
+
+        gsap.to(element, {
+            x: x * 0.4,
+            y: y * 0.4,
+            rotationX: -y * 0.15,
+            rotationY: x * 0.15,
+            scale: 1.05,
+            ease: "power2.out",
+            duration: 0.4,
+        });
+    });
+
+    element.addEventListener('mouseleave', () => {
+        gsap.to(element, {
+            x: 0,
+            y: 0,
+            rotationX: 0,
+            rotationY: 0,
+            scale: 1,
+            ease: "elastic.out(1, 0.3)",
+            duration: 1.2,
+        });
+    });
+});

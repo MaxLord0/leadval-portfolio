@@ -7,7 +7,10 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;700;800&family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     
     <link rel="stylesheet" href="style.css">
     
@@ -40,6 +43,44 @@
         <span class="audio-status">SOUND: OFF</span>
         <div class="audio-waves"><div class="w"></div><div class="w"></div><div class="w"></div></div>
     </button>
+
+    <!-- Shadcn CTA Banner (Pure CSS/JS logic) -->
+    <div class="cta-banner" id="discord-banner" role="alert">
+        <div class="cta-banner-shadow"></div>
+        <div class="cta-banner-content">
+            <div class="cta-icon"><i data-lucide="shield-check"></i></div>
+            <div class="cta-text">
+                <span class="cta-title">LeadVal Dashboard Operative!</span>
+                <span class="cta-desc">Direct architecture consultancy & hiring available.</span>
+            </div>
+            <button class="cta-action" id="banner-discord-btn" onclick="navigator.clipboard.writeText('LEADVAL'); alert('Discord Username LEADVAL copied!'); window.open('https://discord.com/app', '_blank')">
+                Contact <i data-lucide="arrow-right"></i>
+            </button>
+            <button class="cta-close" onclick="document.getElementById('discord-banner').style.display='none'">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Shadcn Pro Modern Mobile Menu (Bottom Dock for Phones) -->
+    <nav class="mobile-dock" role="navigation">
+        <button class="menu__item active" onclick="activateMobileMenu(this, '#home')">
+            <div class="menu__icon"><i data-lucide="home"></i></div>
+            <strong class="menu__text active">Home</strong>
+        </button>
+        <button class="menu__item" onclick="activateMobileMenu(this, '#expertise')">
+            <div class="menu__icon"><i data-lucide="briefcase"></i></div>
+            <strong class="menu__text">Strategy</strong>
+        </button>
+        <button class="menu__item" onclick="activateMobileMenu(this, '#projects')">
+            <div class="menu__icon"><i data-lucide="shield-alert"></i></div>
+            <strong class="menu__text">Archive</strong>
+        </button>
+        <button class="menu__item" onclick="navigator.clipboard.writeText('LEADVAL'); window.open('https://discord.com/app', '_blank')">
+            <div class="menu__icon"><i data-lucide="message-square"></i></div>
+            <strong class="menu__text">Discord</strong>
+        </button>
+    </nav>
 
     <nav class="navbar">
         <div class="nav-brand">LEADVAL<span>(c) 2026</span></div>
@@ -172,22 +213,64 @@
             </div>
             
             <div class="all-projects-btn-wrapper">
-                <button class="circle-btn"><span>ARCHIVE<br>END_<br></span></button>
+                <button class="circle-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"><span>REVEAL<br>END_<br></span></button>
             </div>
         </section>
 
-        <footer class="footer">
-            <div class="footer-inner">
-                <h2 class="footer-title">LET'S<br>BUILD<br>TOGETHER.</h2>
-                <div class="contact-methods">
-                    <div class="c-method"><span class="c-label">EMAIL</span><a href="mailto:leadrhin@gmail.com" class="c-val">LEADRHIN@GMAIL.COM</a></div>
-                    <div class="c-method"><span class="c-label">DISCORD</span><a href="javascript:void(0)" id="copy-discord" class="c-val">LEADVAL</a></div>
-                    <div class="c-method"><span class="c-label">X / TWITTER</span><a href="https://twitter.com/leadrhin" target="_blank" class="c-val">@LEADRHIN</a></div>
+        <!-- Motion Cinematic Footer (Curtain Clip-Path Implementation) -->
+        <div class="cinematic-footer-wrapper" style="clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);">
+            <footer class="c-footer">
+                <div class="footer-aurora"></div>
+                <div class="footer-bg-grid"></div>
+                
+                <div class="footer-giant-bg-text">LEADVAL</div>
+
+                <div class="footer-marquee">
+                    <div class="footer-marquee-inner">
+                        <span>Accountability ✦ Transparent Tracking ✦ Staff Precision ✦ Absolute Integrity ✦ Flawless Detection ✦ </span>
+                        <span>Accountability ✦ Transparent Tracking ✦ Staff Precision ✦ Absolute Integrity ✦ Flawless Detection ✦ </span>
+                    </div>
                 </div>
-            </div>
-        </footer>
+
+                <div class="footer-main-content">
+                    <h2 class="footer-heading footer-text-glow">Ready to scale?</h2>
+                    
+                    <div class="footer-links">
+                        <a href="javascript:void(0)" class="magnetic-btn footer-glass-pill" onclick="navigator.clipboard.writeText('LEADVAL'); alert('Discord Username LEADVAL copied!'); window.open('https://discord.com/app', '_blank')">
+                            <i data-lucide="message-square"></i> Connect Discord
+                        </a>
+                        <a href="mailto:leadrhin@gmail.com" class="magnetic-btn footer-glass-pill">
+                            <i data-lucide="mail"></i> Send Email
+                        </a>
+                        <!-- Botón para descargar Resume asumiendo la ruta futura o contacto -->
+                        <a href="#" class="magnetic-btn footer-glass-pill highlight">
+                            <i data-lucide="file-text"></i> Download Exec. Resume
+                        </a>
+                    </div>
+                    
+                    <div class="footer-sub-links">
+                        <a href="#" class="ft-sub">Privacy Protocol</a>
+                        <a href="https://twitter.com/leadrhin" target="_blank" class="ft-sub">Official X (Twitter)</a>
+                        <a href="#" class="ft-sub">Operational Terms</a>
+                    </div>
+                </div>
+
+                <div class="footer-bottom-bar">
+                    <div class="f-copy">© 2026 LeadVal. All rights reserved.</div>
+                    <div class="f-badge footer-glass-pill">
+                        Crafted with <span class="animate-footer-heartbeat text-destructive">❤</span> by <a href="#" style="color:#fff; margin-left:4px;">The Abyss</a>
+                    </div>
+                    <button class="magnetic-btn footer-glass-pill back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                        <i data-lucide="arrow-up"></i>
+                    </button>
+                </div>
+            </footer>
+        </div>
     </main>
 
     <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
