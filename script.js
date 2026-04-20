@@ -510,3 +510,19 @@ function initThermodynamicGrid() {
 }
 // Init immediately without blocking DOM
 setTimeout(initThermodynamicGrid, 100);
+
+// ==========================================
+// 9. GRADIENT TRACING ANIMATION (Lightning)
+// ==========================================
+const boltGrad = document.getElementById("bolt-gradient");
+if(boltGrad) {
+    // We animate x1 and x2 to slide the gradient completely across the SVG
+    // viewBox is 0 to 400. Start at x: -400 to 0. End at x: 400 to 800.
+    gsap.set(boltGrad, { attr: { x1: -400, x2: 0 } });
+    gsap.to(boltGrad, {
+        attr: { x1: 400, x2: 800 },
+        duration: 2.5,
+        repeat: -1,
+        ease: "none"
+    });
+}

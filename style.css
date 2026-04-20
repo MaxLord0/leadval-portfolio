@@ -255,6 +255,12 @@ p, span, h1, h2, h3, .desc { cursor: text; }
     z-index: -3; pointer-events: none; background: #010103;
 }
 
+/* 5. Gradient Tracing Background (Lightning Bolt) */
+#gradient-tracing-container {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 80vw; height: 90vh; z-index: -2; pointer-events: none; opacity: 0.8;
+}
+
 /* Mobile Reponsive Overhaul */
 @media(max-width: 1024px) {
     .navbar { flex-direction: column; align-items: center; gap: 1rem; padding: 1.5rem 4vw; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); }
@@ -297,4 +303,6 @@ p, span, h1, h2, h3, .desc { cursor: text; }
     .footer-bottom-bar { flex-direction: column; text-align: center; justify-content: center; padding-bottom: 6rem;}
     .f-badge, .f-copy { order: unset; }
     .audio-btn { bottom: 100px; right: 20px;} /* Sube para no tapar dock */
+    
+    #gradient-tracing-container { width: 100vw; height: 70vh; }
 }

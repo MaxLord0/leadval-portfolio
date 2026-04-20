@@ -17,11 +17,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
     <!-- Thermodynamic Grid Canvas -->
     <canvas id="thermodynamic-canvas"></canvas>
+
+    <!-- Animated Gradient Tracing SVG (Lightning) -->
+    <div id="gradient-tracing-container">
+        <svg width="100%" height="100%" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" fill="none">
+            <defs>
+                <linearGradient id="bolt-gradient" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="0" y2="400">
+                    <stop offset="0" stop-color="rgba(0,0,255,0)" />
+                    <stop offset="0.5" stop-color="#FFE600" />
+                    <stop offset="1" stop-color="rgba(0,0,255,0)" />
+                </linearGradient>
+                <filter id="bolt-glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur" />
+                    <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+
+            <!-- Dim base path -->
+            <path d="M200,0 L150,150 L250,150 L100,400 L200,200 L100,200 L200,0" stroke="rgba(0,0,255,0.05)" stroke-width="6" stroke-linejoin="round" />
+            
+            <!-- Gradient tracing path -->
+            <path d="M200,0 L150,150 L250,150 L100,400 L200,200 L100,200 L200,0" stroke="url(#bolt-gradient)" stroke-linecap="round" stroke-linejoin="round" stroke-width="6" filter="url(#bolt-glow)"/>
+        </svg>
+    </div>
+
     <svg style="width:0;height:0;position:absolute;z-index:-1;" aria-hidden="true">
         <filter id="liquid-filter">
             <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
@@ -31,7 +57,7 @@
 
     <div class="liquid-transition-layer"></div>
     
-    <div id="webgl-container"></div>
+    <div class="liquid-transition-layer"></div>
     <div class="grain-overlay"></div>
 
     <div class="preloader">
